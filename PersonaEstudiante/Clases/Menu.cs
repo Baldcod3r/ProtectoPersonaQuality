@@ -31,8 +31,8 @@ namespace PersonaEstudiante.Clases
             Console.WriteLine("\n");
             Console.WriteLine("-----Menu principal-----");
             Console.WriteLine("\n");
-            Console.WriteLine("1.[Crear Registro] | 3.[Eliminar Alumno]");
-            Console.WriteLine("2.[Lista Alumnos] | 4.[Modificar Alumno]");
+            Console.WriteLine("1.[Crear Registro] | 3.[Archivo Txt]");
+            Console.WriteLine("2.[Lista Alumnos] | 4.[Buscar Alumno ]");
             Console.WriteLine("0.[Salir] | 5.[Lista Alumnos]");
             Console.WriteLine("Seleccione una opcion");
             opcion_menu = Console.ReadLine();
@@ -50,8 +50,7 @@ namespace PersonaEstudiante.Clases
             {
                 case "1":
                     Console.Clear();
-                    List<Alumno> listaAlumnos = new List<Alumno>();
-                    CrearAlumno(listaAlumnos);
+                    CrearAlumno();
                     VolverMenu();
                     Console.ReadKey();
                     break;
@@ -63,10 +62,15 @@ namespace PersonaEstudiante.Clases
                     break;
                 case "3":
                     Console.Clear();
+                    MostrarContenidoArchivo("alumnos.txt");
+                    VolverMenu();
                     Console.ReadKey();
                     break;
                 case "4":
                     Console.Clear();
+                    List<Alumno> listaAlumno = new List<Alumno>();
+                    BuscarAlumnoPorNombre(listaAlumno,nombreBuscado:Console.ReadLine());
+                    VolverMenu();
                     Console.ReadKey();
                     break;
                 case "5":

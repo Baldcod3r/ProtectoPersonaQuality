@@ -41,9 +41,9 @@ namespace PersonaEstudiante.Clases
 
         }
 
-        List<Alumno> listaAlumno = new List<Alumno>();
 
-        public void CrearAlumno(List<Alumno> listaAlumno)
+        List<Alumno> listaAlumno = new List<Alumno>();
+        public void CrearAlumno()
 
 
         {
@@ -174,14 +174,15 @@ namespace PersonaEstudiante.Clases
                     string dniString = Console.ReadLine();
                     bool esNumero = int.TryParse(dniString, out dni);
 
-                    dniValido = true;
+                    
                     if (esNumero)
                     {
+                        dniValido = true;
                         Console.WriteLine("El Dni guardado es: " + dni);
                     }
                     else
                     {
-                        Console.WriteLine("El id no es un entero valido");
+                        Console.WriteLine("El dni no es un entero valido");
                     }
                 }
 
@@ -192,23 +193,24 @@ namespace PersonaEstudiante.Clases
 
                 bool validarCuil = false;
 
-                int cuil = 0;
+                double cuil = 0;
 
 
                 while (!validarCuil)
                 {
-                    validarCuil = true;
+                    
                     Console.WriteLine("Ingresa el Cuil del alumno: ");
                     string cuilString = Console.ReadLine();
-                    bool esEntero = int.TryParse(cuilString, out cuil);
-
+                    bool esEntero = double.TryParse(cuilString, out cuil);
+                    
                     if (esEntero)
                     {
-                        Console.WriteLine("El id guardad es: " + cuil);
+                        validarCuil = true;
+                        Console.WriteLine("El cuil guardado es: " + cuil);
                     }
                     else
                     {
-                        Console.WriteLine("El id no es un entero valido");
+                        Console.WriteLine("El cuil no es un entero valido");
                     }
 
 
@@ -377,6 +379,7 @@ namespace PersonaEstudiante.Clases
 
                 });
 
+                GuardarListaEnArchivo("alumnos.txt", listaAlumno);
                 Console.WriteLine("\n");
                 Console.WriteLine("Datos guardados correctamente!");
 
@@ -406,7 +409,6 @@ namespace PersonaEstudiante.Clases
         }
         public void Lista()
         {
-
             if (ListaVacia() == true)
             {
                 Console.WriteLine( "No se encuentra ningun dato en la lista");
@@ -434,6 +436,95 @@ namespace PersonaEstudiante.Clases
         }
 
 
+        public void GuardarListaEnArchivo(string nombreArchivo, List<Alumno> listaAlumno)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(nombreArchivo))
+                {
+                    foreach (var alumno in listaAlumno)
+                    {
+                        
+                        string linea = $"{alumno.Id},{alumno.Nombre},{alumno.Apellido},{alumno.Dni},{alumno.Cuil},{alumno.Carrera},{alumno.AdeudaDocumentacion},{alumno.Estado},{alumno.Inscripto}";
+                        writer.WriteLine(linea);
+                    }
+                }
 
+                Console.WriteLine("Datos guardados en el archivo correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar los datos en el archivo: {ex.Message}");
+            }
+        }
+
+        public void EditarArchivo(string nombreArchivo, List<Alumno> listaAlumno)
+        {
+            try
+            {
+                // Lee el contenido actual del archivo
+                List<string> lineas = File.ReadAllLines(nombreArchivo).ToList();
+
+                
+
+                // Sobrescribe el archivo con los datos actualizados
+                using (StreamWriter writer = new StreamWriter(nombreArchivo))
+                {
+                    foreach (var alumno in listaAlumno)
+                    {
+                        // Convierte el objeto Alumno a una línea de texto con el formato adecuado
+                        string linea = $"{alumno.Id},{alumno.Nombre},{alumno.Apellido},{alumno.Dni},{alumno.Cuil},{alumno.Carrera},{alumno.AdeudaDocumentacion},{alumno.Estado},{alumno.Inscripto}";
+                        writer.WriteLine(linea);
+                    }
+                }
+
+                Console.WriteLine("Archivo editado correctamente.");
+            }
+            catch
+            {
+                Console.WriteLine($"Error al editar el archivo");
+            }
+        }
+
+        public void MostrarContenidoArchivo(string nombreArchivo)
+        {
+            try
+            {
+                // Lee el contenido del archivo
+                string[] lineas = File.ReadAllLines(nombreArchivo);
+
+                // Muestra cada línea en la consola
+                foreach (string linea in lineas)
+                {
+                    Console.WriteLine(linea);
+                }
+            }
+            catch 
+            {
+                Console.WriteLine($"Error al mostrar el contenido del archivo");
+            }
+        }
+
+
+
+        public void BuscarAlumnoPorNombre(List<Alumno> listaAlumno, string nombreBuscado)
+        {
+           
+            var alumnosEncontrados = listaAlumno.Where(alumno => alumno.Nombre.Equals(nombreBuscado)).ToList();
+
+            if (alumnosEncontrados.Count > 0)
+            {
+                Console.WriteLine("Alumnos encontrados:");
+                foreach (var alumno in alumnosEncontrados)
+                {
+                    Console.WriteLine($"ID: {alumno.Id}, Nombre: {alumno.Nombre}, Apellido: {alumno.Apellido}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No se encontraron alumnos con el nombre '{nombreBuscado}'.");
+            }
+        }
     }
 }
+
