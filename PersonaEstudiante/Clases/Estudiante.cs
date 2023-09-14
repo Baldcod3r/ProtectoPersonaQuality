@@ -16,6 +16,10 @@ namespace PersonaEstudiante.Clases
         public bool Estado { get => estado; set => estado = value; }
         public string Carrera { get => carrera; set => carrera = value; }
 
+        public Estudiante()
+        {
+            
+        }
         public Estudiante(int id, string nombre, string apellido, string dni, string cuil,bool estado, string carrera) : base(id, nombre, apellido, dni, cuil)
         {
            

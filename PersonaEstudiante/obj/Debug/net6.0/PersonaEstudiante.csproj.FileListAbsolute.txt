@@ -1,0 +1,15 @@
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\bin\Debug\net6.0\PersonaEstudiante.exe
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\bin\Debug\net6.0\PersonaEstudiante.deps.json
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\bin\Debug\net6.0\PersonaEstudiante.runtimeconfig.json
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\bin\Debug\net6.0\PersonaEstudiante.dll
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\bin\Debug\net6.0\PersonaEstudiante.pdb
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.csproj.AssemblyReference.cache
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.AssemblyInfoInputs.cache
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.AssemblyInfo.cs
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.csproj.CoreCompileInputs.cache
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.dll
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\refint\PersonaEstudiante.dll
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.pdb
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\PersonaEstudiante.genruntimeconfig.cache
+C:\Users\Agustin\Desktop\ProyectoPersonaAlumno\ProyectoPersonaEstudiante\PersonaEstudiante\obj\Debug\net6.0\ref\PersonaEstudiante.dll
