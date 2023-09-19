@@ -31,9 +31,10 @@ namespace PersonaEstudiante.Clases
             Console.WriteLine("\n");
             Console.WriteLine("-----Menu principal-----");
             Console.WriteLine("\n");
-            Console.WriteLine("1.[Crear Registro] | 3.[Archivo Txt]");
-            Console.WriteLine("2.[Lista Alumnos] | 4.[Buscar Alumno ]");
-            Console.WriteLine("0.[Salir] | 5.[Lista Alumnos]");
+            Console.WriteLine("1.[Crear Registro] | 3.[Alumnos Registrados]");
+            Console.WriteLine("2.[Lista Alumnos] | 4.[Buscar Alumno]");
+            Console.WriteLine("5.[Eliminar Alumnos] | 6.[Editar Alumno] ");
+            Console.WriteLine("0.[SALIR]");
             Console.WriteLine("Seleccione una opcion");
             opcion_menu = Console.ReadLine();
             SeleccionMenu(opcion_menu);
@@ -68,14 +69,25 @@ namespace PersonaEstudiante.Clases
                     break;
                 case "4":
                     Console.Clear();
-                    List<Alumno> listaAlumno = new List<Alumno>();
-                    BuscarAlumnoPorNombre(listaAlumno,nombreBuscado:Console.ReadLine());
+                    BuscarAlumnoPorNombre();
                     VolverMenu();
                     Console.ReadKey();
                     break;
                 case "5":
                     Console.Clear();
+                    EliminarAlumnoPorId();
+                    VolverMenu();
                     Console.ReadKey();
+                    break;
+
+                case "6":
+                    Console.Clear();
+                    EditarAlumnoPorId();
+                    VolverMenu();
+                    Console.ReadKey();
+                    break;
+                case "0":
+                    Console.Out.Close();
                     break;
                 case "v":
                     Console.Clear();

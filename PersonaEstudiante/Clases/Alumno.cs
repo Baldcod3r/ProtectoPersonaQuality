@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -92,19 +93,15 @@ namespace PersonaEstudiante.Clases
                     string idString = Console.ReadLine();
 
                     bool esNum = int.TryParse(idString, out id);
-                    if (esNum)
+                    if (esNum && id > 0 && !listaAlumno.Any(alumno => alumno.Id == id))
                     {
                         validId = true;
                         Console.WriteLine("El id guardado es: " + id);
                     }
-
-                    else if (id != null && id == id)
-                    {
-                        Console.WriteLine("El valor ya existe ingrese un id nuevo");
-                    }
+                  
                     else
                     {
-                        Console.WriteLine("El id no es un entero valido");
+                        Console.WriteLine("El id no es un entero valido y debe ser mayor a 0 o ya existe un id con ese valor.");
                     }
                 }
 
@@ -254,22 +251,32 @@ namespace PersonaEstudiante.Clases
 
                 while (!valido)
                 {
-                    adeudaDocumentacion = bool.Parse(Console.ReadLine());
-                    valido = true;
-                    if (adeudaDocumentacion.Equals(true))
+                    try
                     {
-                        Console.WriteLine("El alumno adeuda documentacion");
-                    }
-                    else if (adeudaDocumentacion.Equals(false))
-                    {
-                        Console.WriteLine("El alumno no adeuda documentacion");
-                    }
+                        adeudaDocumentacion = bool.Parse(Console.ReadLine());
+                        valido = true;
+                        if (adeudaDocumentacion.Equals(true))
+                        {
+                            Console.WriteLine("El alumno adeuda documentacion");
+                        }
+                        else if (adeudaDocumentacion.Equals(false))
+                        {
+                            Console.WriteLine("El alumno no adeuda documentacion");
+                        }
 
-                    else
-                    {
-                        Console.WriteLine("Por favor ingresa true o false.");
+                        else
+                        {
+                            Console.WriteLine("Por favor ingresa true o false.");
+                        }
                     }
-                };
+                    catch (Exception ex)
+                    {
+
+
+                        Console.WriteLine("Error! intenta nuevamente.");
+                    }
+                    
+                }
 
 
 
@@ -283,24 +290,33 @@ namespace PersonaEstudiante.Clases
                 while (!inscriptoValid)
                 {
 
-                    inscriptoValid = true;
-                    Console.WriteLine("El alumno esta inscripto? True/False:");
-                    inscripto = bool.Parse(Console.ReadLine());
-
-                    if (inscripto.Equals(true))
+                    try
                     {
-                        Console.WriteLine("El alumno esta inscripto");
-                    }
+                        inscriptoValid = true;
+                        Console.WriteLine("El alumno esta inscripto? True/False:");
+                        inscripto = bool.Parse(Console.ReadLine());
 
-                    else if (inscripto.Equals(false))
-                    {
-                        Console.WriteLine("El alumno debe inscribirse");
-                    }
+                        if (inscripto.Equals(true))
+                        {
+                            Console.WriteLine("El alumno esta inscripto");
+                        }
 
-                    else
-                    {
-                        Console.WriteLine("Por favor ingresa true o false.");
+                        else if (inscripto.Equals(false))
+                        {
+                            Console.WriteLine("El alumno debe inscribirse");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Por favor ingresa true o false.");
+                        }
                     }
+                    catch (Exception ex)
+                    {
+
+                        Console.WriteLine("Error! intenta nuevamente.");
+                    }
+                    
                 }
 
 
@@ -333,38 +349,47 @@ namespace PersonaEstudiante.Clases
                 bool estadoValid = false;
                 bool estadoBool = false;
                 string estado = "";
-                while (!estadoValid)
-                {
+               
 
 
                     while (!estadoValid)
                     {
-                        Console.WriteLine("Ingresa true si el alumno es regular o false si el alumno es no regular: ");
-                        estado = Console.ReadLine();
 
-                        if (bool.TryParse(estado, out estadoBool))
+                        try
                         {
-                            estadoValid = true;
-                            estadoBool = true;
-                            Console.WriteLine("El alumno es regular");
-                        }
+                            Console.WriteLine("Ingresa true si el alumno es regular o false si el alumno es no regular: ");
+                            estado = Console.ReadLine();
 
-                        else if (!estadoValid)
-                        {
-                            estadoBool = false;
-                            Console.WriteLine("El alumno no es regular");
+                            if (bool.TryParse(estado, out estadoBool))
+                            {
+                                estadoValid = true;
+                                estadoBool = true;
+                                Console.WriteLine("El alumno es regular");
+                            }
+
+                            else if (!estadoValid)
+                            {
+                                estadoBool = false;
+                                Console.WriteLine("El alumno no es regular");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ingresa solo true o false por favor.");
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            Console.WriteLine("Ingresa solo true o false por favor.");
+
+                            Console.WriteLine("Error! intenta nuevamente.");
                         }
+                        
                     }
 
-                }
+                
 
+                
 
-
-                listaAlumno.Add(new Alumno()
+                    listaAlumno.Add(new Alumno()
                 {
                     Id = id,
                     Nombre = nombre,
@@ -373,8 +398,10 @@ namespace PersonaEstudiante.Clases
                     Cuil = cuil.ToString(),
                     Carrera = carrera,
                     AdeudaDocumentacion = adeudaDocumentacion,
-                    Estado = estadoBool,
+                    cantidadDeMaterias = cantMaterias,
                     Inscripto = inscripto,
+                    Estado = estadoBool,
+                   
 
 
                 });
@@ -432,7 +459,7 @@ namespace PersonaEstudiante.Clases
         public void MostrarDato(Alumno dato)
         {
             Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-");
-            Console.WriteLine($"Id: {dato.Id},Nombre: {dato.Nombre}, Apellido: {dato.Dni},Cuil: {dato.Cuil},Estado: {dato.Estado},Carrera: {dato.Carrera},Documentacion: {dato.AdeudaDocumentacion}, Inscripto: {dato.Inscripto}, Materias: {dato.CantidadDeMaterias}");
+            Console.WriteLine($"Id: {dato.Id},Nombre: {dato.Nombre}, Apellido: {dato.Apellido},Dni: {dato.Dni},Cuil: {dato.Cuil},Carrera: {dato.Carrera},Documentacion: {dato.AdeudaDocumentacion},Inscripto: {dato.Inscripto},Materias: {dato.CantidadDeMaterias}, Estado: {dato.Estado}");
         }
 
 
@@ -445,7 +472,7 @@ namespace PersonaEstudiante.Clases
                     foreach (var alumno in listaAlumno)
                     {
                         
-                        string linea = $"{alumno.Id},{alumno.Nombre},{alumno.Apellido},{alumno.Dni},{alumno.Cuil},{alumno.Carrera},{alumno.AdeudaDocumentacion},{alumno.Estado},{alumno.Inscripto}";
+                        string linea = $"{alumno.Id},{alumno.Nombre},{alumno.Apellido},{alumno.Dni},{alumno.Cuil},{alumno.Carrera},{alumno.AdeudaDocumentacion},{alumno.Inscripto},{alumno.cantidadDeMaterias},{alumno.Estado}";
                         writer.WriteLine(linea);
                     }
                 }
@@ -458,33 +485,7 @@ namespace PersonaEstudiante.Clases
             }
         }
 
-        public void EditarArchivo(string nombreArchivo, List<Alumno> listaAlumno)
-        {
-            try
-            {
-                // Lee el contenido actual del archivo
-                List<string> lineas = File.ReadAllLines(nombreArchivo).ToList();
-
-                
-
-                // Sobrescribe el archivo con los datos actualizados
-                using (StreamWriter writer = new StreamWriter(nombreArchivo))
-                {
-                    foreach (var alumno in listaAlumno)
-                    {
-                        // Convierte el objeto Alumno a una línea de texto con el formato adecuado
-                        string linea = $"{alumno.Id},{alumno.Nombre},{alumno.Apellido},{alumno.Dni},{alumno.Cuil},{alumno.Carrera},{alumno.AdeudaDocumentacion},{alumno.Estado},{alumno.Inscripto}";
-                        writer.WriteLine(linea);
-                    }
-                }
-
-                Console.WriteLine("Archivo editado correctamente.");
-            }
-            catch
-            {
-                Console.WriteLine($"Error al editar el archivo");
-            }
-        }
+       
 
         public void MostrarContenidoArchivo(string nombreArchivo)
         {
@@ -507,24 +508,295 @@ namespace PersonaEstudiante.Clases
 
 
 
-        public void BuscarAlumnoPorNombre(List<Alumno> listaAlumno, string nombreBuscado)
+        public void BuscarAlumnoPorNombre()
         {
-           
-            var alumnosEncontrados = listaAlumno.Where(alumno => alumno.Nombre.Equals(nombreBuscado)).ToList();
+            StreamReader lectura;
+            string cadena, alumno;
+            bool encontrado;
+            string[] campos = new string[10];
+            char[] separador = { ',' };
+            encontrado = false;
 
-            if (alumnosEncontrados.Count > 0)
+            try
             {
-                Console.WriteLine("Alumnos encontrados:");
-                foreach (var alumno in alumnosEncontrados)
+                lectura = File.OpenText("alumnos.txt");
+                Console.WriteLine("Ingresa el nombre del alumno que buscas en minusculas: ");
+                alumno = Console.ReadLine();
+                cadena = lectura.ReadLine();
+
+
+                while (cadena != null && encontrado == false)
                 {
-                    Console.WriteLine($"ID: {alumno.Id}, Nombre: {alumno.Nombre}, Apellido: {alumno.Apellido}");
+                    campos = cadena.Split(separador);
+
+                    if (campos[1].Trim().ToLower().Equals(alumno))
+                    {
+                        Console.WriteLine($"Id: {campos[0].Trim()}");
+                        Console.WriteLine($"Nombre: {campos[1].Trim()}");
+                        Console.WriteLine($"Apellido: {campos[2].Trim()}");
+                        Console.WriteLine($"Dni: {campos[3].Trim()}");
+                        Console.WriteLine($"Cuil: {campos[4].Trim()}");
+                        Console.WriteLine($"Carrera: {campos[5].Trim()}");
+                        Console.WriteLine($"Documentacion: {campos[6].Trim()}");
+                        Console.WriteLine($"Inscripto: {campos[7].Trim()}");
+                        Console.WriteLine($"Materias: {campos[8].Trim()}");
+                        Console.WriteLine($"Estado: {campos[9].Trim()}");
+
+
+
+                        encontrado = true;
+
+                        Console.WriteLine("Presionen una tecla...");
+                    } 
+                    else
+                    {
+                        cadena = lectura.ReadLine();
+                    }
                 }
+
+                if (encontrado == false)
+                {
+                    Console.WriteLine($"El alumno {alumno} no fue encontrado!");
+                    Console.WriteLine("Presione una tecla...");
+
+                }
+                
             }
-            else
+
+            catch (FileNotFoundException fe)
             {
-                Console.WriteLine($"No se encontraron alumnos con el nombre '{nombreBuscado}'.");
+
+                Console.WriteLine("Error!" + fe.Message);
             }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error!" + e.Message);
+            }
+
+            Console.ReadKey(true);
+
+
+
+            
         }
+
+
+        public void EliminarAlumnoPorId()
+        {
+
+            StreamReader lectura;
+
+            StreamWriter temporal;
+
+            string cadena, alumno;
+            bool encontrado;
+            string[] campos = new string[10];
+            char[] separador = { ',' };
+            encontrado = false;
+
+            try
+            {
+                lectura = File.OpenText("alumnos.txt");
+                temporal = File.CreateText("tmp.txt");
+                Console.WriteLine("Ingresa el id del alumno que deseas eliminar: ");
+                alumno = Console.ReadLine();
+                cadena = lectura.ReadLine();
+
+
+                while (cadena != null)
+                {
+                    campos = cadena.Split(separador);
+
+                    if (campos[0].Trim().Equals(alumno))
+                    {
+                        encontrado = true;
+                    }
+                    else
+                    {
+                        temporal.WriteLine(cadena);
+                    }
+                    cadena = lectura.ReadLine();
+                }
+
+                if (encontrado == false)
+                {
+                    Console.WriteLine($"El alumno {alumno} no fue encontrado!");
+                    Console.WriteLine("Presione una tecla...");
+
+                }
+                else
+                {
+                    Console.WriteLine("Registro Eliminado!");
+                    Console.WriteLine("Presione una tecla...");
+                }
+                lectura.Close();
+                temporal.Close(); 
+                File.Delete("alumnos.txt");
+                File.Move("tmp.txt","alumnos.txt");
+
+            }
+
+            catch (FileNotFoundException fe)
+            {
+
+                Console.WriteLine("Error!" + fe.Message);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error!" + e.Message);
+            }
+
+            Console.ReadKey(true);
+
+
+
+
+        }
+
+
+        public void EditarAlumnoPorId()
+        {
+
+            StreamReader lectura;
+
+            StreamWriter temporal;
+
+            string cadena, alumno, nuevoNombre,
+            nuevoApellido,nuevoDni,nuevoCuil,nuevaCarrera,nuevaDocumentacion,nuevoInscripto,nuevaMateria,respuesta, nuevoEstado;
+            bool encontrado;
+            string[] campos = new string[10];
+            char[] separador = { ',' };
+            encontrado = false;
+
+            try
+            {
+                lectura = File.OpenText("alumnos.txt");
+                temporal = File.CreateText("tmp.txt");
+                Console.WriteLine("Ingresa el id del alumno que deseas modificar: ");
+                alumno = Console.ReadLine();
+                cadena = lectura.ReadLine();
+
+
+                while (cadena != null)
+                {
+                    campos = cadena.Split(separador);
+
+                    if (campos[0].Trim().Equals(alumno))
+                    {
+
+                        Console.WriteLine("##################################################");
+                        Console.WriteLine("Registro encontrado");
+                        Console.WriteLine($"Id: {campos[0].Trim()}");
+                        Console.WriteLine($"Nombre: {campos[1].Trim()}");
+                        Console.WriteLine($"Apellido: {campos[2].Trim()}");
+                        Console.WriteLine($"Dni: {campos[3].Trim()}");
+                        Console.WriteLine($"Cuil: {campos[4].Trim()}");
+                        Console.WriteLine($"Carrera: {campos[5].Trim()}");
+                        Console.WriteLine($"Documentacion: {campos[6].Trim()}");
+                        Console.WriteLine($"Inscripto: {campos[7].Trim()}");
+                        Console.WriteLine($"Materias: {campos[8].Trim()}");
+                        Console.WriteLine($"Estado: {campos[9].Trim()}");
+
+                        Console.WriteLine("###################################################");
+                        encontrado = true;
+                        Console.WriteLine("El registro que deseas modificar es el indicado? SI/NO");
+                        respuesta = Console.ReadLine();
+                        respuesta = respuesta.ToUpper();
+
+                        if (respuesta.Equals("SI"))
+
+                        {
+                            Console.WriteLine("Ingresa el nuevo Nombre:");
+                            nuevoNombre = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa el nuevo Apellido:");
+                            nuevoApellido = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa el nuevo Dni:");
+                            nuevoDni = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa el nuevo Cuil:");
+                            nuevoCuil = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa la nueva Carrera:");
+                            nuevaCarrera = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa el nuevo True/False si adeuda documentacion o no adeuda documentacion" );
+                            nuevaDocumentacion = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa el nuevo True/False si esta inscripto o no inscripto");
+                            nuevoInscripto = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa la cantidad de materias");
+                            nuevaMateria = Console.ReadLine();
+
+                            Console.WriteLine("Ingresa True/False si es alumno regular o no regular:");
+                            nuevoEstado = Console.ReadLine();
+
+                            
+
+
+
+
+                            //Modificar Registro
+
+                            temporal.WriteLine($"{campos[0]},{nuevoNombre}, {nuevoApellido}, {nuevoDni}, {nuevoCuil}, {nuevaCarrera}, {nuevaDocumentacion}, {nuevoInscripto}, {nuevaMateria}, {nuevoEstado}");
+
+                            Console.WriteLine("Registro Modificado de manera correcta.");
+                            Console.WriteLine("Presione una tecla...");
+
+                        }
+
+                        else
+                        {
+                            temporal.WriteLine(cadena);
+                        }
+
+                    }
+
+                    else
+                    {
+                        temporal.WriteLine(cadena);
+                    }
+                    
+                    cadena = lectura.ReadLine();
+                }
+
+                if (encontrado == false)
+                {
+                    Console.WriteLine($"El alumno {alumno} no fue encontrado!");
+                    Console.WriteLine("Presione una tecla...");
+
+                }
+                 
+                lectura.Close();
+                temporal.Close();
+                File.Delete("alumnos.txt");
+                File.Move("tmp.txt", "alumnos.txt");
+
+            }
+
+            catch (FileNotFoundException fe)
+            {
+
+                Console.WriteLine("Error!" + fe.Message);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error!" + e.Message);
+            }
+
+            Console.ReadKey(true);
+
+
+
+
+        }
+
+
     }
 }
 

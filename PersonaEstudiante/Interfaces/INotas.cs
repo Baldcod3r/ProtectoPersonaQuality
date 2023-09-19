@@ -9,6 +9,5 @@ namespace PersonaEstudiante.Interfaces
     internal class INotas
     {
 
-
     }
 }
