@@ -19,13 +19,16 @@ namespace PersonaEstudiante.Clases
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }
         public string Dni { get => dni; set => dni = value; }
-        public string Cuil { get => Cuil; set => Cuil = value; }
+        public string Cuil { get => cuil; set => cuil = value; }
 
 
-
+        public Persona()
+        {
+           
+        }
         public Persona(int id, string nombre, string apellido, string dni, string cuil)
         {
-            this.id = 1;
+            this.id = 0;
             this.nombre = string.Empty;
             this.apellido = string.Empty;
             this.dni = string.Empty;
